@@ -48,10 +48,12 @@ points = PackedVector2Array(11, -33, -18, -35, -27, -29, -27, -11, -35, -9, -32,
 [node name="Main" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+visible = false
 z_index = -10
 texture = ExtResource("1_rx770")
 
 [node name="Obstacles" type="Node2D" parent="."]
+visible = false
 
 [node name="Tree_1" type="StaticBody2D" parent="Obstacles"]
 position = Vector2(315, 26.999992)
@@ -83,7 +85,7 @@ scale = Vector2(0.384, 0.37087086)
 sprite_frames = SubResource("SpriteFrames_f22ei")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.34344417
+frame_progress = 0.9962804
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("ConvexPolygonShape2D_7cvq4")
@@ -91,3 +93,6 @@ shape = SubResource("ConvexPolygonShape2D_7cvq4")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
