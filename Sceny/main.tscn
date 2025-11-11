@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://csvt8rlqp6hda"]
+
+[ext_resource type="Texture2D" uid="uid://c2hnel4e1vxfs" path="res://Graphics/Background.png" id="1_rx770"]
+[ext_resource type="Script" uid="uid://b3mq3jipo51yd" path="res://Scripts/player.gd" id="2_54204"]
+[ext_resource type="Texture2D" uid="uid://c56gjlfojbma3" path="res://Graphics/Hero.png" id="2_a1hcm"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ig7tw"]
+points = PackedVector2Array(92.277466, 44.194183, 63.993164, 24.395195, 72.478485, -6.717514, 20.85965, -56.92209, -33.587555, -74.59976, -69.65001, -68.23581, -80.963715, -37.123093, -72.47844, -1.7677612, -44.194153, 37.83023, -20.85962, 66.821594, 25.102295, 76.01399, 48.43683, 96.520096, 80.25665, 83.08505)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 59.48109
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h2yge"]
+points = PackedVector2Array(-24, 49, -3, 68, 21, 61, 34, 59, 35, 33, 49, 26, 74, 7, 86, -33, 53, -93, 0, -104, -33, -97, -62, -61, -71, -34, -68, -4, -51, 14, -42, 24, -33, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54204"]
+atlas = ExtResource("2_a1hcm")
+region = Rect2(9, 0, 250, 333)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdvxu"]
+atlas = ExtResource("2_a1hcm")
+region = Rect2(259, 0, 250, 333)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlyx8"]
+atlas = ExtResource("2_a1hcm")
+region = Rect2(509, 0, 250, 333)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f22ei"]
+animations = [{
+"frames": [{
+"duration": 1.71,
+"texture": SubResource("AtlasTexture_54204")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdvxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlyx8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_7cvq4"]
+points = PackedVector2Array(11, -33, -18, -35, -27, -29, -27, -11, -35, -9, -32, 8, -40, 14, -41, 42, -27, 50, -23, 62, -10, 63, -8, 48, -1, 48, 1, 60, 11, 62, 16, 53, 30, 46, 30, 9, 21, 2, 17, -15)
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+texture = ExtResource("1_rx770")
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Tree_1" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(315, 26.999992)
+rotation = 0.7853982
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Tree_1"]
+position = Vector2(68.94292, 54.80078)
+shape = SubResource("ConvexPolygonShape2D_ig7tw")
+
+[node name="Bush_1" type="StaticBody2D" parent="Obstacles"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Bush_1"]
+position = Vector2(192, 181)
+shape = SubResource("CircleShape2D_0xm2m")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(334, -379)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/StaticBody2D"]
+shape = SubResource("ConvexPolygonShape2D_h2yge")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+z_index = 10
+script = ExtResource("2_54204")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-2.0000076, 3)
+scale = Vector2(0.384, 0.37087086)
+sprite_frames = SubResource("SpriteFrames_f22ei")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.34344417
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("ConvexPolygonShape2D_7cvq4")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
