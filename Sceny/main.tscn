@@ -9,8 +9,7 @@
 [node name="Player1" parent="." instance=ExtResource("2_rx770")]
 
 [node name="Camera2D" type="Camera2D" parent="Player1"]
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
+zoom = Vector2(8, 8)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_mcbmc")
