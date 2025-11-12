@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpdj8jk5loxdi"]
+
+[ext_resource type="Texture2D" uid="uid://buwd7hcbgb504" path="res://Graphics/Tilemap/PNG/Overworld.png" id="1_damch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18kbo"]
+atlas = ExtResource("1_damch")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgycs"]
+atlas = ExtResource("1_damch")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2rkn"]
+atlas = ExtResource("1_damch")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4m1d"]
+atlas = ExtResource("1_damch")
+region = Rect2(320, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j306a"]
+atlas = ExtResource("1_damch")
+region = Rect2(288, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myadr"]
+atlas = ExtResource("1_damch")
+region = Rect2(256, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rbib5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18kbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgycs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2rkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4m1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j306a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myadr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wiu1x"]
+size = Vector2(32, 32)
+
+[node name="Oczko_wodne" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rbib5")
+autoplay = "default"
+frame_progress = 0.5240163
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wiu1x")

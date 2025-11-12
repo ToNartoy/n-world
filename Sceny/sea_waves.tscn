@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4rdec1xtkvjf"]
+
+[ext_resource type="Texture2D" uid="uid://buwd7hcbgb504" path="res://Graphics/Tilemap/PNG/Overworld.png" id="1_jhtsb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg8re"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(48, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hai7o"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu8hx"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fedq"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j1pm"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e03mp"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4ugr"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phiqt"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ithq7"]
+atlas = ExtResource("1_jhtsb")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d0fwy"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_eg8re")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hai7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu8hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fedq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2j1pm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e03mp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4ugr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phiqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ithq7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl26s"]
+size = Vector2(16, 16)
+
+[node name="sea_waves" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d0fwy")
+autoplay = "default"
+frame_progress = 0.710747
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xl26s")
