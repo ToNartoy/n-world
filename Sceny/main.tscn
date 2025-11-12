@@ -1028,10 +1028,9 @@ sources/0 = SubResource("TileSetAtlasSource_54204")
 [node name="Main" type="Node2D"]
 
 [node name="Player1" parent="." instance=ExtResource("2_rx770")]
-position = Vector2(1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player1"]
-zoom = Vector2(8, 8)
+zoom = Vector2(6, 6)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_mcbmc")
