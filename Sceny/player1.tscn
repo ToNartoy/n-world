@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://divvdcaihguk"]
+
+[ext_resource type="Texture2D" uid="uid://dnn04a5jyeamy" path="res://Graphics/hero/Sprites/IDLE/idle_down.png" id="1_5371f"]
+[ext_resource type="Script" uid="uid://b3mq3jipo51yd" path="res://Scripts/player1.gd" id="1_prvno"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prvno"]
+atlas = ExtResource("1_5371f")
+region = Rect2(0, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gavdl"]
+atlas = ExtResource("1_5371f")
+region = Rect2(96, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duk8m"]
+atlas = ExtResource("1_5371f")
+region = Rect2(192, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bujwo"]
+atlas = ExtResource("1_5371f")
+region = Rect2(288, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc75i"]
+atlas = ExtResource("1_5371f")
+region = Rect2(384, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvf84"]
+atlas = ExtResource("1_5371f")
+region = Rect2(480, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fomr"]
+atlas = ExtResource("1_5371f")
+region = Rect2(576, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0te3p"]
+atlas = ExtResource("1_5371f")
+region = Rect2(672, 0, 96, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b8nqn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prvno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gavdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duk8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bujwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tc75i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvf84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fomr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0te3p")
+}],
+"loop": true,
+"name": &"Idle down",
+"speed": 11.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gk1mh"]
+radius = 7.8125
+
+[node name="Player1" type="CharacterBody2D"]
+z_index = 10
+script = ExtResource("1_prvno")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -7)
+scale = Vector2(0.384, 0.37087086)
+sprite_frames = SubResource("SpriteFrames_b8nqn")
+animation = &"Idle down"
+autoplay = "Idle down"
+frame_progress = 0.9241232
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+scale = Vector2(0.384, 0.37087086)
+shape = SubResource("CircleShape2D_gk1mh")
