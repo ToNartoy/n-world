@@ -1030,8 +1030,7 @@ sources/0 = SubResource("TileSetAtlasSource_54204")
 position = Vector2(1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player1"]
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
+zoom = Vector2(8, 8)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_mcbmc")
