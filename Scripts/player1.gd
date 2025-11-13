@@ -4,10 +4,13 @@ extends CharacterBody2D
 @export var accel: float = 2000.0
 @export var deccel: float = 2500.0
 
+@onready var invincibility_timer = $InvincibilityTimer
 @onready var anim = $AnimatedSprite2D
 
 var last_direction = Vector2.DOWN
 var is_attacking = false
+var is_invincible = false
+var is_hurting = false
 
 # --- POPRAWIONA ŚCIEŻKA: Referencja do Hitboxu ---
 # Skoro Hitbox jest dzieckiem AnimatedSprite2D:
@@ -79,12 +82,16 @@ func _on_animation_finished() -> void:
 	if anim_name.begins_with("death_"):
 		# Po animacji śmierci np. zatrzymaj grę
 		get_tree().paused = true
+	
+	if anim_name.begins_with("hurt_"):
+		is_hurting = false
+		# Po bólu wracamy do idle, żeby nie zacięło się na ostatniej klatce
+		# (Możesz też pozwolić update_animation to zrobić w następnej klatce)
 
 
 # To jest funkcja, którą podłączyłeś z sygnału 'area_entered' Hitboxu
 	# W skrypcie gracz.gd
 func _on_Hitbox_area_entered(area):
-	print("!!!!!!!!!!!!!!!! TRAFIENIE! SYGNAŁ DZIAŁA! !!!!!!!!!!!!!!!!")
 	# Sprawdzamy, czy 'area', którą trafiliśmy, jest w grupie 'enemy'
 	if area.is_in_group("enemy"):
 		# 'area.owner' to główny węzeł wroga (enemy1)
@@ -100,7 +107,7 @@ var health = 10
 
 func _physics_process(delta: float) -> void:
 	
-	if is_dead or is_attacking: # Nie ruszaj się, gdy martwy lub atakujesz
+	if is_dead or is_attacking or is_hurting: # Nie ruszaj się, gdy martwy lub atakujesz
 		# Tylko hamuj
 		velocity = velocity.move_toward(Vector2.ZERO, deccel * delta)
 		move_and_slide()
@@ -122,7 +129,7 @@ func _physics_process(delta: float) -> void:
 
 
 func update_animation():
-	if is_attacking or is_dead: # Nie animuj biegu, gdy martwy/atakujesz
+	if is_attacking or is_dead or is_hurting: # Nie animuj biegu, gdy martwy/atakujesz
 		return
 
 	if velocity.length() > 10.0:
@@ -142,28 +149,57 @@ func update_animation():
 			else: anim.play("idle_up")
 
 
-# Funkcje obrażeń gracza
 func player_take_damage(damage_amount):
-	if is_dead:
+	# Jeśli jesteśmy nietykalni LUB martwi, nie rób nic
+	if is_invincible or is_dead:
 		return
 
 	health -= damage_amount
+	print("AŁA! Dostałem obrażenia! Aktualne HP: ", health) # Nasz dowód w konsoli
 	
+	# Włączamy nietykalność
+	is_invincible = true
+	invincibility_timer.start()
+	
+	# Włączamy stan "bólu" (blokuje ruch)
+	is_hurting = true
+	
+	# --- TO JEST TA CZĘŚĆ, KTÓRĄ USUNĄŁEŚ (Obsługa Śmierci) ---
 	if health <= 0:
 		is_dead = true
 		
 		# Wybierz animację śmierci na podstawie kierunku
 		if abs(last_direction.x) > abs(last_direction.y):
-			if last_direction.x > 0: anim.play("death_right")
-			else: anim.play("death_left")
+			if last_direction.x > 0:
+				anim.play("death_right")
+			else:
+				anim.play("death_left")
 		else:
-			if last_direction.y > 0: anim.play("death_down")
-			else: anim.play("death_up")
+			if last_direction.y > 0:
+				anim.play("death_down")
+			else:
+				anim.play("death_up")
+	# -----------------------------------------------------------
 	else:
-		# Wybierz animację bólu na podstawie kierunku
+		# Gracz żyje -> Odegraj animację bólu (hurt)
 		if abs(last_direction.x) > abs(last_direction.y):
-			if last_direction.x > 0: anim.play("hurt_right")
-			else: anim.play("hurt_left")
+			if last_direction.x > 0:
+				anim.play("hurt_right")
+			else:
+				anim.play("hurt_left")
 		else:
-			if last_direction.y > 0: anim.play("hurt_down")
-			else: anim.play("hurt_up")
+			if last_direction.y > 0:
+				anim.play("hurt_down")
+			else:
+				anim.play("hurt_up")
+
+func _on_Invincibility_Timer_timeout():
+	# Czas nietykalności minął, wyłączamy ją
+	is_invincible = false
+	# (Opcjonalnie: wyłącz miganie)
+	# anim.modulate = Color(1, 1, 1, 1.0)
+
+
+# Ta funkcja została właśnie utworzona przez sygnał
+func _on_PlayerHurtbox_area_entered(area):
+	print("!!! [GRACZ]: Czuję cię! Dotknął mnie: ", area.name)

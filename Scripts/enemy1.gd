@@ -17,6 +17,8 @@ func _ready():
 
 # TĘ FUNKCJĘ WYWOŁA ATAK GRACZA - Z AKTUALIZACJĄ!
 func take_damage(damage_amount, attack_direction):
+	
+	
 	if is_dead:
 		return # Nie da się zabić trupa
 
@@ -79,3 +81,31 @@ func _on_animation_finished():
 # TODO: W _physics_process wroga musisz dodać logikę ruchu
 # i aktualizować 'idle_direction_suffix' na podstawie jego WŁASNEGO ruchu,
 # tak jak to robimy w skrypcie gracza.
+
+
+func _on_TouchDamage_area_entered(area):
+	print("--- DIAGNOSTYKA KOLIZJI ---")
+	print("1. Wykryłem obiekt o nazwie: ", area.name)
+	
+	# Sprawdźmy grupę
+	var czy_w_grupie = area.is_in_group("player")
+	print("2. Czy ten obiekt jest w grupie 'player'? ", czy_w_grupie)
+	
+	if czy_w_grupie:
+		print("3. Grupa OK! Próbuję pobrać właściciela (Gracza)...")
+		var cel = area.owner
+		# Jeśli owner to null, spróbujmy rodzica (częsty błąd w Godot)
+		if cel == null:
+			cel = area.get_parent()
+			print("   (Uwaga: area.owner był pusty, używam get_parent())")
+			
+		print("4. Znalazłem cel: ", cel.name)
+		
+		if cel.has_method("player_take_damage"):
+			print("5. Cel ma funkcję 'player_take_damage'. WYWOŁUJĘ JĄ!")
+			cel.player_take_damage(1)
+		else:
+			print("BŁĄD KRYTYCZNY: Cel ", cel.name, " NIE MA funkcji player_take_damage!")
+	else:
+		print("BŁĄD LOGICZNY: Obiekt ", area.name, " NIE JEST w grupie 'player'. Sprawdź pisownię w węźle!")
+	print("---------------------------")

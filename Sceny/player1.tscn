@@ -1,4 +1,4 @@
-[gd_scene load_steps=201 format=3 uid="uid://divvdcaihguk"]
+[gd_scene load_steps=202 format=3 uid="uid://divvdcaihguk"]
 
 [ext_resource type="Texture2D" uid="uid://dnn04a5jyeamy" path="res://Graphics/hero/Sprites/IDLE/idle_down.png" id="1_5371f"]
 [ext_resource type="Script" uid="uid://b3mq3jipo51yd" path="res://Scripts/player1.gd" id="1_prvno"]
@@ -1359,6 +1359,9 @@ size = Vector2(55.84896, 25.222668)
 [sub_resource type="CircleShape2D" id="CircleShape2D_gk1mh"]
 radius = 7.8125
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgvjn"]
+size = Vector2(5.5, 9.5)
+
 [node name="Player1" type="CharacterBody2D"]
 z_index = 10
 script = ExtResource("1_prvno")
@@ -1375,14 +1378,29 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Hitbox"]
+visible = false
 position = Vector2(12, 0)
 shape = SubResource("RectangleShape2D_e3278")
 disabled = true
 debug_color = Color(0.99519104, 0.5738286, 0.55856484, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -5)
 scale = Vector2(0.384, 0.37087086)
 shape = SubResource("CircleShape2D_gk1mh")
 
+[node name="PlayerHurtbox" type="Area2D" parent="." groups=["player"]]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_wgvjn")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="AnimatedSprite2D/Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_entered" from="PlayerHurtbox" to="." method="_on_PlayerHurtbox_area_entered"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_Invincibility_Timer_timeout"]
