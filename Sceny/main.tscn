@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://csvt8rlqp6hda"]
+[gd_scene load_steps=7 format=3 uid="uid://csvt8rlqp6hda"]
 
 [ext_resource type="Texture2D" uid="uid://buwd7hcbgb504" path="res://Graphics/Tilemap/PNG/Overworld.png" id="2_a1hcm"]
 [ext_resource type="PackedScene" uid="uid://divvdcaihguk" path="res://Sceny/player1.tscn" id="2_rx770"]
 [ext_resource type="PackedScene" uid="uid://cikrdl0ogaj5b" path="res://Sceny/big_tree.tscn" id="3_a1hcm"]
+[ext_resource type="PackedScene" uid="uid://du5wjqjivwwuk" path="res://Sceny/enemy1.tscn" id="4_54204"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_54204"]
 texture = ExtResource("2_a1hcm")
@@ -1044,3 +1045,6 @@ position = Vector2(64, -82)
 
 [node name="Big_Tree2" parent="." instance=ExtResource("3_a1hcm")]
 position = Vector2(62, 11)
+
+[node name="enemy1" parent="." instance=ExtResource("4_54204")]
+position = Vector2(20, -34)
